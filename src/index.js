@@ -41,7 +41,7 @@ class Cache {
     const store = {};
     const nowMS = new Date().getTime();
 
-    if (!window.localStorage) {
+    if (!AsyncStorage) {
       return callback(null, null);
     }
 
@@ -71,7 +71,7 @@ class Cache {
   }
 
   save(language, namespace, data) {
-    if (window.localStorage) {
+    if (AsyncStorage) {
       data.i18nStamp = new Date().getTime();
 
       // language version (if set)
