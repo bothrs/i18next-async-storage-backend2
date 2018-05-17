@@ -1,15 +1,15 @@
 {
-  "name": "i18next-localstorage-backend",
-  "version": "1.1.4",
-  "description": "caching layer backend for i18next using browsers localStorage",
+  "name": "i18next-async-storage-backend",
+  "version": "1.0.0",
+  "description": "caching layer backend for i18next using react native async storage",
   "main": "./index.js",
   "jsnext:main": "dist/es/index.js",
   "keywords": [
     "i18next",
     "i18next-backend"
   ],
-  "homepage": "https://github.com/i18next/i18next-localStorage-backend",
-  "bugs": "https://github.com/i18next/i18next-localStorage-backend/issues",
+  "homepage": "https://github.com/timbrandin/i18next-async-storage-backend",
+  "bugs": "https://github.com/timbrandin/i18next-async-storage-backend/issues",
   "dependencies": {},
   "devDependencies": {
     "babel-cli": "6.23.0",
@@ -29,9 +29,12 @@
     "rollup-plugin-uglify": "1.0.1",
     "yargs": "6.6.0"
   },
+  "peerDependencies": {
+    "react-native": "*"
+  },
   "scripts": {
     "clean": "rimraf dist && mkdirp dist",
-    "copy": "cp ./dist/umd/i18nextLocalStorageBackend.min.js ./i18nextLocalStorageBackend.min.js && cp ./dist/umd/i18nextLocalStorageBackend.js ./i18nextLocalStorageBackend.js",
+    "copy": "cp ./dist/umd/i18nextAsyncStorageBackend.min.js ./i18nextAsyncStorageBackend.min.js && cp ./dist/umd/i18nextAsyncStorageBackend.js ./i18nextAsyncStorageBackend.js",
     "build:es": "BABEL_ENV=jsnext babel src --out-dir dist/es",
     "build:cjs": "babel src --out-dir dist/commonjs",
     "build:umd": "rollup -c rollup.config.js --format umd && rollup -c rollup.config.js --format umd --uglify",
@@ -41,6 +44,9 @@
     "preversion": "npm run build && git push",
     "postversion": "git push && git push --tags"
   },
-  "author": "Jan Mühlemann <jan.muehlemann@gmail.com> (https://github.com/jamuhl)",
+  "author": [
+    "Jan Mühlemann <jan.muehlemann@gmail.com> (https://github.com/jamuhl)",
+    "Tim Brandin <tim.brandin@gmail.com> (https://github.com/timbrandin)"
+  ],
   "license": "MIT"
 }

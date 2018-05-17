@@ -1,16 +1,16 @@
 # Introduction
 
-This is a i18next cache layer to be used in the browser. It will load and cache resources from localStorage and can be used in combination with the [chained backend](https://github.com/i18next/i18next-chained-backend).
+This is a i18next cache layer to be used in the browser. It will load and cache resources from AsyncStorage and can be used in combination with the [chained backend](https://github.com/i18next/i18next-chained-backend).
 
 # Getting started
 
-Source can be loaded via [npm](https://www.npmjs.com/package/i18next-localstorage-cache)or [downloaded](https://github.com/i18next/i18next-localStorage-cache/blob/master/i18nextLocalStorageCache.min.js) from this repo.
+Source can be loaded via [npm](https://www.npmjs.com/package/i18next-async-storage-cache)or [downloaded](https://github.com/timbrandin/i18next-async-storage-cache/blob/master/i18nextAsyncStorageCache.min.js) from this repo.
 
-- If you don't use a module loader it will be added to window.i18nextLocalStorageBackend
+- If you don't use a module loader it will be added to window.i18nextAsyncStorageBackend
 
 ```
 # npm package
-$ npm install i18next-localstorage-backend
+$ npm install i18next-async-storage-backend
 ```
 
 Wiring up with the chained backend:
@@ -18,7 +18,7 @@ Wiring up with the chained backend:
 ```js
 import i18next from 'i18next';
 import Backend from 'i18next-chained-backend';
-import LocalStorageBackend from 'i18next-localstorage-backend'; // primary use cache
+import AsyncStorageBackend from 'i18next-async-storage-backend'; // primary use cache
 import XHR from 'i18next-xhr-backend'; // fallback xhr load
 
 i18next
@@ -26,7 +26,7 @@ i18next
   .init({
     backend: {
       backends: [
-        LocalStorageBackend,  // primary
+        AsyncStorageBackend,  // primary
         XHR                   // fallback
       ],
       backendOptions: [{

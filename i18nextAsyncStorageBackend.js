@@ -1,7 +1,7 @@
 (function (global, factory) {
 	typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
 	typeof define === 'function' && define.amd ? define(factory) :
-	(global.i18nextLocalStorageBackend = factory());
+	(global.i18nextAsyncStorageBackend = factory());
 }(this, (function () { 'use strict';
 
 var arr = [];
@@ -23,23 +23,18 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
+// get from whatever version of react native that is being used.
+var AsyncStorage = (require('react-native') || {}).AsyncStorage;
+
 var storage = {
   setItem: function setItem(key, value) {
-    if (window.localStorage) {
-      try {
-        window.localStorage.setItem(key, value);
-      } catch (e) {
-        // f.log('failed to set value for key "' + key + '" to localStorage.');
-      }
+    if (AsyncStorage) {
+      return AsyncStorage.setItem(key, value);
     }
   },
   getItem: function getItem(key, value) {
-    if (window.localStorage) {
-      try {
-        return window.localStorage.getItem(key, value);
-      } catch (e) {
-        // f.log('failed to get value for key "' + key + '" from localStorage.');
-      }
+    if (AsyncStorage) {
+      return AsyncStorage.getItem(key, value);
     }
     return undefined;
   }
@@ -75,6 +70,8 @@ var Cache = function () {
   }, {
     key: 'read',
     value: function read(language, namespace, callback) {
+      var _this = this;
+
       var store = {};
       var nowMS = new Date().getTime();
 
@@ -82,23 +79,26 @@ var Cache = function () {
         return callback(null, null);
       }
 
-      var local = storage.getItem('' + this.options.prefix + language + '-' + namespace);
+      storage.getItem('' + this.options.prefix + language + '-' + namespace).then(function (local) {
+        if (local) {
+          local = JSON.parse(local);
+          if (
+          // expiration field is mandatory, and should not be expired
+          local.i18nStamp && local.i18nStamp + _this.options.expirationTime > nowMS &&
 
-      if (local) {
-        local = JSON.parse(local);
-        if (
-        // expiration field is mandatory, and should not be expired
-        local.i18nStamp && local.i18nStamp + this.options.expirationTime > nowMS &&
-
-        // there should be no language version set, or if it is, it should match the one in translation
-        this.options.versions[language] === local.i18nVersion) {
-          delete local.i18nVersion;
-          delete local.i18nStamp;
-          return callback(null, local);
+          // there should be no language version set, or if it is, it should match the one in translation
+          _this.options.versions[language] === local.i18nVersion) {
+            delete local.i18nVersion;
+            delete local.i18nStamp;
+            return callback(null, local);
+          }
         }
-      }
 
-      callback(null, null);
+        callback(null, null);
+      }).catch(function (err) {
+        console.warn(err);
+        callback(null, null);
+      });
     }
   }, {
     key: 'save',

@@ -1,22 +1,17 @@
 import * as utils from './utils';
 
+// get from whatever version of react native that is being used.
+const AsyncStorage = (require('react-native') || {}).AsyncStorage;
+
 const storage = {
   setItem(key, value) {
-    if (window.localStorage) {
-      try {
-        window.localStorage.setItem(key, value);
-      } catch (e) {
-        // f.log('failed to set value for key "' + key + '" to localStorage.');
-      }
+    if (AsyncStorage) {
+      return AsyncStorage.setItem(key, value);
     }
   },
   getItem(key, value) {
-    if (window.localStorage) {
-      try {
-        return window.localStorage.getItem(key, value);
-      } catch (e) {
-        // f.log('failed to get value for key "' + key + '" from localStorage.');
-      }
+    if (AsyncStorage) {
+      return AsyncStorage.getItem(key, value);
     }
     return undefined;
   }
@@ -50,24 +45,29 @@ class Cache {
       return callback(null, null);
     }
 
-    let local = storage.getItem(`${this.options.prefix}${language}-${namespace}`);
+    storage.getItem(`${this.options.prefix}${language}-${namespace}`)
+      .then(local => {
+        if (local) {
+          local = JSON.parse(local);
+          if (
+            // expiration field is mandatory, and should not be expired
+            local.i18nStamp && local.i18nStamp + this.options.expirationTime > nowMS &&
 
-    if (local) {
-      local = JSON.parse(local);
-      if (
-        // expiration field is mandatory, and should not be expired
-        local.i18nStamp && local.i18nStamp + this.options.expirationTime > nowMS &&
+            // there should be no language version set, or if it is, it should match the one in translation
+            this.options.versions[language] === local.i18nVersion
+          ) {
+            delete local.i18nVersion;
+            delete local.i18nStamp;
+            return callback(null, local);
+          }
+        }
 
-        // there should be no language version set, or if it is, it should match the one in translation
-        this.options.versions[language] === local.i18nVersion
-      ) {
-        delete local.i18nVersion;
-        delete local.i18nStamp;
-        return callback(null, local);
-      }
-    }
-
-    callback(null, null);
+        callback(null, null);
+      })
+      .catch(err => {
+        console.warn(err);
+        callback(null, null);
+      });
   }
 
   save(language, namespace, data) {
