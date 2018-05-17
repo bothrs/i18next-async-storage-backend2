@@ -6,8 +6,6 @@ This is a i18next cache layer to be used in the browser. It will load and cache 
 
 Source can be loaded via [npm](https://www.npmjs.com/package/i18next-async-storage-cache) or [downloaded](https://github.com/timbrandin/i18next-async-storage-cache/blob/master/i18nextAsyncStorageCache.min.js) from this repo.
 
-- If you don't use a module loader it will be added to window.i18nextAsyncStorageBackend
-
 ```
 # npm package
 $ npm install i18next-async-storage-backend
