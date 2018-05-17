@@ -75,7 +75,7 @@ var Cache = function () {
       var store = {};
       var nowMS = new Date().getTime();
 
-      if (!window.localStorage) {
+      if (!AsyncStorage) {
         return callback(null, null);
       }
 
@@ -103,7 +103,7 @@ var Cache = function () {
   }, {
     key: 'save',
     value: function save(language, namespace, data) {
-      if (window.localStorage) {
+      if (AsyncStorage) {
         data.i18nStamp = new Date().getTime();
 
         // language version (if set)
