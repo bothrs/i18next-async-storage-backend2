@@ -30,7 +30,7 @@
     "yargs": "6.6.0"
   },
   "peerDependencies": {
-    "react-native": "*"
+    "@react-native-community/async-storage": "*"
   },
   "scripts": {
     "clean": "rimraf dist && mkdirp dist",
