@@ -1,7 +1,7 @@
 import * as utils from './utils';
 
 // get from whatever version of react native that is being used.
-const AsyncStorage = (require('react-native') || {}).AsyncStorage;
+const AsyncStorage = (require('@react-native-community/async-storage') || {}).AsyncStorage;
 
 const storage = {
   setItem(key, value) {
