@@ -1,5 +1,5 @@
 {
-  "name": "i18next-async-storage-backend",
+  "name": "i18next-async-storage-backend2",
   "version": "1.0.2",
   "description": "caching layer backend for i18next using react native async storage",
   "main": "./index.js",
@@ -14,16 +14,16 @@
     "i18next",
     "i18next-backend"
   ],
-  "homepage": "https://github.com/timbrandin/i18next-async-storage-backend",
-  "bugs": "https://github.com/timbrandin/i18next-async-storage-backend/issues",
+  "homepage": "https://github.com/bothrs/i18next-async-storage-backend2",
+  "bugs": "https://github.com/bothrs/i18next-async-storage-backend2/issues",
   "dependencies": {},
   "devDependencies": {
     "@react-native-async-storage/async-storage": "~1.15.0",
     "babel-cli": "6.23.0",
     "babel-core": "6.23.1",
     "babel-eslint": "7.1.1",
-    "babel-preset-es2015-native-modules": "^6.9.4",
     "babel-preset-es2015": "6.22.0",
+    "babel-preset-es2015-native-modules": "^6.9.4",
     "babel-preset-es2015-rollup": "3.0.0",
     "babel-preset-stage-0": "^6.22.0",
     "eslint": "3.16.1",
@@ -53,7 +53,8 @@
   },
   "author": [
     "Jan Mühlemann <jan.muehlemann@gmail.com> (https://github.com/jamuhl)",
-    "Tim Brandin <tim.brandin@gmail.com> (https://github.com/timbrandin)"
+    "Tim Brandin <tim.brandin@gmail.com> (https://github.com/timbrandin)",
+    "Thomas Ghysels <thomas@bothrs.com> (https://github.com/bothrs)"
   ],
   "license": "MIT"
 }

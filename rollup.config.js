@@ -1,7 +1,6 @@
 import babel from 'rollup-plugin-babel';
 import uglify from 'rollup-plugin-uglify';
 import nodeResolve from 'rollup-plugin-node-resolve';
-import peerDepsExternal from 'rollup-plugin-peer-deps-external';
 import { argv } from 'yargs';
 
 const format = argv.format || argv.f || 'iife';
@@ -22,12 +21,11 @@ const dest = {
 export default {
   entry: 'src/index.js',
   format,
-  plugins: [
-    babel(babelOptions),
-    nodeResolve({ jsnext: true }),
-    peerDepsExternal(),
-  ].concat(compress ? uglify() : []),
+  plugins: [babel(babelOptions), nodeResolve({ jsnext: true })].concat(
+    compress ? uglify() : []
+  ),
   moduleName: 'i18nextAsyncStorageBackend',
   // moduleId: 'i18nextAsyncStorageCache',
-  dest
+  dest,
+  external: ['@react-native-async-storage/async-storage']
 };

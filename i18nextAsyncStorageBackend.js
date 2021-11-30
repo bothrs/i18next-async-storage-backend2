@@ -1,8 +1,10 @@
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
-	typeof define === 'function' && define.amd ? define(factory) :
-	(global.i18nextAsyncStorageBackend = factory());
-}(this, (function () { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(require('@react-native-async-storage/async-storage')) :
+	typeof define === 'function' && define.amd ? define(['@react-native-async-storage/async-storage'], factory) :
+	(global.i18nextAsyncStorageBackend = factory(global.AsyncStorage));
+}(this, (function (AsyncStorage) { 'use strict';
+
+AsyncStorage = 'default' in AsyncStorage ? AsyncStorage['default'] : AsyncStorage;
 
 var arr = [];
 var each = arr.forEach;
@@ -24,7 +26,6 @@ var _createClass = function () { function defineProperties(target, props) { for 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 // get from whatever version of react native that is being used.
-var AsyncStorage = require('@react-native-community/async-storage') || {};
 
 var storage = {
   setItem: function setItem(key, value) {
@@ -85,7 +86,6 @@ var Cache = function () {
           if (
           // expiration field is mandatory, and should not be expired
           local.i18nStamp && local.i18nStamp + _this.options.expirationTime > nowMS &&
-
           // there should be no language version set, or if it is, it should match the one in translation
           _this.options.versions[language] === local.i18nVersion) {
             delete local.i18nVersion;
