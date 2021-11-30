@@ -1,4 +1,4 @@
-import AsyncStorage from '@react-native-community/async-storage';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as utils from './utils';
 
 // get from whatever version of react native that is being used.
@@ -45,14 +45,15 @@ class Cache {
       return callback(null, null);
     }
 
-    storage.getItem(`${this.options.prefix}${language}-${namespace}`)
+    storage
+      .getItem(`${this.options.prefix}${language}-${namespace}`)
       .then(local => {
         if (local) {
           local = JSON.parse(local);
           if (
             // expiration field is mandatory, and should not be expired
-            local.i18nStamp && local.i18nStamp + this.options.expirationTime > nowMS &&
-
+            local.i18nStamp &&
+            local.i18nStamp + this.options.expirationTime > nowMS &&
             // there should be no language version set, or if it is, it should match the one in translation
             this.options.versions[language] === local.i18nVersion
           ) {
@@ -80,7 +81,10 @@ class Cache {
       }
 
       // save
-      storage.setItem(`${this.options.prefix}${language}-${namespace}`, JSON.stringify(data));
+      storage.setItem(
+        `${this.options.prefix}${language}-${namespace}`,
+        JSON.stringify(data)
+      );
     }
   }
 }

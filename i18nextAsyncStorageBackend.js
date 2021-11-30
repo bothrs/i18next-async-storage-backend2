@@ -24,7 +24,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 // get from whatever version of react native that is being used.
-var AsyncStorage = (require('react-native') || {}).AsyncStorage;
+var AsyncStorage = require('@react-native-community/async-storage') || {};
 
 var storage = {
   setItem: function setItem(key, value) {

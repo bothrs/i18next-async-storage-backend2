@@ -3,7 +3,13 @@
   "version": "1.0.2",
   "description": "caching layer backend for i18next using react native async storage",
   "main": "./index.js",
-  "jsnext:main": "dist/es/index.js",
+  "exports": {
+    ".": {
+      "import": "./dist/es/index.js",
+      "require": "./dist/commonjs/index.js",
+      "default": "./dist/umd/i18nextAsyncStorageBackend.js"
+    }
+  },
   "keywords": [
     "i18next",
     "i18next-backend"
@@ -12,6 +18,7 @@
   "bugs": "https://github.com/timbrandin/i18next-async-storage-backend/issues",
   "dependencies": {},
   "devDependencies": {
+    "@react-native-async-storage/async-storage": "~1.15.0",
     "babel-cli": "6.23.0",
     "babel-core": "6.23.1",
     "babel-eslint": "7.1.1",
@@ -30,7 +37,7 @@
     "yargs": "6.6.0"
   },
   "peerDependencies": {
-    "@react-native-community/async-storage": "*"
+    "@react-native-async-storage/async-storage": "~1.15.0"
   },
   "scripts": {
     "clean": "rimraf dist && mkdirp dist",
