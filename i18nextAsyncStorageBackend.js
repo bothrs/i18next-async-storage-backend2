@@ -73,7 +73,6 @@ var Cache = function () {
     value: function read(language, namespace, callback) {
       var _this = this;
 
-      var store = {};
       var nowMS = new Date().getTime();
 
       if (!AsyncStorage) {

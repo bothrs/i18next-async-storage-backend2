@@ -26,6 +26,7 @@ export default {
   ),
   moduleName: 'i18nextAsyncStorageBackend',
   // moduleId: 'i18nextAsyncStorageCache',
+  globals: { '@react-native-async-storage/async-storage': 'AsyncStorage' },
   dest,
   external: ['@react-native-async-storage/async-storage']
 };

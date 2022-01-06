@@ -38,7 +38,6 @@ class Cache {
   }
 
   read(language, namespace, callback) {
-    const store = {};
     const nowMS = new Date().getTime();
 
     if (!AsyncStorage) {
