@@ -52,7 +52,8 @@
     "preversion": "npm run build && git push",
     "postversion": "git push && git push --tags"
   },
-  "author": [
+  "author": "Thomas Ghysels <thomas@bothrs.com> (https://github.com/bothrs)",
+  "contributors": [
     "Jan Mühlemann <jan.muehlemann@gmail.com> (https://github.com/jamuhl)",
     "Tim Brandin <tim.brandin@gmail.com> (https://github.com/timbrandin)",
     "Thomas Ghysels <thomas@bothrs.com> (https://github.com/bothrs)"
