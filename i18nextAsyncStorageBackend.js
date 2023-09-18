@@ -26,7 +26,6 @@ var _createClass = function () { function defineProperties(target, props) { for 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 // get from whatever version of react native that is being used.
-
 var storage = {
   setItem: function setItem(key, value) {
     if (AsyncStorage) {
@@ -73,7 +72,7 @@ var Cache = function () {
     value: function read(language, namespace, callback) {
       var _this = this;
 
-      var nowMS = new Date().getTime();
+      var nowMS = Date.now();
 
       if (!AsyncStorage) {
         return callback(null, null);
@@ -87,9 +86,10 @@ var Cache = function () {
           local.i18nStamp && local.i18nStamp + _this.options.expirationTime > nowMS &&
           // there should be no language version set, or if it is, it should match the one in translation
           _this.options.versions[language] === local.i18nVersion) {
+            var i18nStamp = local.i18nStamp;
             delete local.i18nVersion;
             delete local.i18nStamp;
-            return callback(null, local);
+            return callback(null, local, i18nStamp);
           }
         }
 
@@ -103,7 +103,7 @@ var Cache = function () {
     key: 'save',
     value: function save(language, namespace, data) {
       if (AsyncStorage) {
-        data.i18nStamp = new Date().getTime();
+        data.i18nStamp = Date.now();
 
         // language version (if set)
         if (this.options.versions[language]) {
@@ -113,6 +113,11 @@ var Cache = function () {
         // save
         storage.setItem('' + this.options.prefix + language + '-' + namespace, JSON.stringify(data));
       }
+    }
+  }, {
+    key: 'getVersion',
+    value: function getVersion(language) {
+      return this.options.versions[language] || this.options.defaultVersion;
     }
   }]);
 

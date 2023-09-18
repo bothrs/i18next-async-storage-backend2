@@ -1,6 +1,6 @@
 {
   "name": "i18next-async-storage-backend2",
-  "version": "2.0.2",
+  "version": "2.0.3",
   "description": "caching layer backend for i18next using react native async storage",
   "main": "./index.js",
   "types": "./index.d.ts",
@@ -49,7 +49,7 @@
     "build:amd": "rollup -c rollup.config.js --format amd && rollup -c rollup.config.js --format umd --uglify",
     "build:iife": "rollup -c rollup.config.js --format iife && rollup -c rollup.config.js --format iife --uglify",
     "build": "npm run clean && npm run build:cjs && npm run build:es && npm run build:umd && npm run copy",
-    "preversion": "npm run build && git push",
+    "preversion": "npm run build && git add \"i*.js\" && git push",
     "postversion": "git push && git push --tags"
   },
   "author": "Thomas Ghysels <thomas@bothrs.com> (https://github.com/bothrs)",
