@@ -20,7 +20,8 @@ function getDefaults() {
   return {
     prefix: 'i18next_res_',
     expirationTime: 7 * 24 * 60 * 60 * 1000,
-    versions: {}
+    versions: {},
+    skipCache: []
   };
 }
 
@@ -37,6 +38,10 @@ class Cache {
   }
 
   read(language, namespace, callback) {
+    if (this.options.skipCache.includes(namespace)) {
+      return callback(null, null);
+    }
+
     const nowMS = Date.now();
 
     if (!AsyncStorage) {
@@ -71,6 +76,9 @@ class Cache {
   }
 
   save(language, namespace, data) {
+    if (this.options.skipCache.includes(namespace)) {
+      return callback(null, null);
+    }
     if (AsyncStorage) {
       data.i18nStamp = Date.now();
 
@@ -87,7 +95,7 @@ class Cache {
     }
   }
 
-  getVersion (language) {
+  getVersion(language) {
     return this.options.versions[language] || this.options.defaultVersion;
   }
 }
