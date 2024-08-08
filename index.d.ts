@@ -3,6 +3,7 @@ declare namespace I18NextAsyncStorageBackend {
     prefix?: string;
     expirationTime?: number;
     versions?: { [key: string]: string };
+    skipCache?: string[];
   }
 
   type LoadCallback = (error: any, result: string | false) => void;
