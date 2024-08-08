@@ -8,9 +8,10 @@ This is a i18next cache layer to be used in the browser. It will load and cache 
 
 Source can be loaded via [npm](https://www.npmjs.com/package/i18next-async-storage-cache) or [downloaded](https://github.com/timbrandin/i18next-async-storage-cache/blob/master/i18nextAsyncStorageCache.min.js) from this repo.
 
-```
-# npm package
-$ npm install i18next-async-storage-backend2
+```bash
+npx expo install i18next-async-storage-backend2 @react-native-async-storage/async-storage
+# or
+npm install i18next-async-storage-backend2
 ```
 
 Wiring up with the chained backend:
