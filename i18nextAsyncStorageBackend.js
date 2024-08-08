@@ -44,7 +44,8 @@ function getDefaults() {
   return {
     prefix: 'i18next_res_',
     expirationTime: 7 * 24 * 60 * 60 * 1000,
-    versions: {}
+    versions: {},
+    skipCache: []
   };
 }
 
@@ -71,6 +72,10 @@ var Cache = function () {
     key: 'read',
     value: function read(language, namespace, callback) {
       var _this = this;
+
+      if (this.options.skipCache.includes(namespace)) {
+        return callback(null, null);
+      }
 
       var nowMS = Date.now();
 
@@ -102,6 +107,9 @@ var Cache = function () {
   }, {
     key: 'save',
     value: function save(language, namespace, data) {
+      if (this.options.skipCache.includes(namespace)) {
+        return callback(null, null);
+      }
       if (AsyncStorage) {
         data.i18nStamp = Date.now();
 

@@ -1,6 +1,6 @@
 {
   "name": "i18next-async-storage-backend2",
-  "version": "2.0.3",
+  "version": "2.1.0",
   "description": "caching layer backend for i18next using react native async storage",
   "main": "./index.js",
   "types": "./index.d.ts",
